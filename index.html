@@ -52,12 +52,10 @@
       
       <div id="print_tweet_area">
         <!-- Hidden for use by JS query selector -->
-        <div v-if="termExists != false"> 
-          <span class="display-none" v-for="item in arrayOfTweetIDs" :key="item">
-            {{item}}
-          </span>
+        <div id="termExists" v-if="termExists != false">
+          <!-- Loading area for generated tweets -->
         </div>
-        <div v-else> 
+        <div v-else>
           <h1>{{target_handle}} has no links to searched word: {{termToSearch}}</h1> 
         </div>
       </div>
@@ -104,13 +102,14 @@
             this.termExists = false;
             this.showLoader = false;
           }
-          else {
+          else {    
+            this.termExists = true;
             this.generateFeed();
           }
         },
         generateFeed: function() {
           const multipleIDS = this.arrayOfTweetIDs;
-          const tweetContainer = document.getElementById('print_tweet_area');
+          const tweetContainer = document.getElementById('termExists');
           tweetContainer.innerHTML = "";
           const tweetID = document.getElementById('container').innerText;
   
